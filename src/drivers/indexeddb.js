@@ -127,13 +127,15 @@ function _getConnection(dbInfo, upgradeNeeded) {
             }
         }
 
-        var dbArgs = [dbInfo.name];
+        // var dbArgs = [dbInfo.name];
 
-        if (upgradeNeeded) {
-            dbArgs.push(dbInfo.version);
-        }
+        // if (upgradeNeeded) {
+        //     dbArgs.push(dbInfo.version);
+        // }
 
-        var openreq = idb.open.apply(idb, dbArgs);
+        // var openreq = idb.open.apply(idb, dbArgs);
+
+        var openreq = idb.open(dbInfo.name, { version: dbInfo.version || 1, storage: 'persistent' });
 
         if (upgradeNeeded) {
             openreq.onupgradeneeded = function(e) {
